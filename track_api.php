@@ -11,7 +11,7 @@ if (!$o || (!is_admin() && $o['user_id'] != user()['id'])) { http_response_code(
 $step = track_step((int)$o['elapsed']);
 echo json_encode([
     'step'     => $o['status'] === 'received' ? 4 : $step,
-    'text'     => $o['status'] === 'received' ? 'รับน้องเรียบร้อยแล้ว ขอให้มีความสุขกับสมาชิกใหม่ 🎉' : TRACK_TEXT[$step],
+    'text'     => $o['status'] === 'received' ? 'รับน้องเรียบร้อยแล้ว ขอให้มีความสุขกับสมาชิกใหม่ ' : TRACK_TEXT[$step],
     'elapsed'  => (int)$o['elapsed'],
     'received' => $o['status'] === 'received',
     'can_confirm' => $o['status'] === 'shipping' && $step === 3 && !is_admin(),

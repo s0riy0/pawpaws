@@ -1,5 +1,3 @@
-/* PawPaws – minimal cream theme
-   60% #FDFBF7 / #FAF6F0 · 30% #EBD8C3 / #F3E9DD · 10% #F3A382 */
 :root {
   --bg: #fdfbf7;
   --bg2: #faf6f0;
@@ -1021,3 +1019,61 @@ tfoot td {
     box-shadow: none;
   }
 }
+
+/* chat: unread dot + sound */
+.chat-dot {
+  display: none;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  margin-left: 4px;
+  border-radius: 9px;
+  background: #e53935;
+  color: #fff;
+  font-size: 0.7rem;
+  line-height: 18px;
+  text-align: center;
+  vertical-align: middle;
+}
+.chat-dot.on {
+  display: inline-block;
+  animation: chatPulse 1.6s infinite;
+}
+@keyframes chatPulse {
+  0% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.5); }
+  70% { box-shadow: 0 0 0 7px rgba(229, 57, 53, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); }
+}
+.threads a {
+  position: relative;
+  padding-left: 34px;
+}
+.threads .cdot {
+  position: absolute;
+  left: 14px;
+  top: 21px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #c4bcb4;
+}
+.threads a.unread .cdot {
+  background: #e53935;
+  box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.18);
+}
+.threads a.unread strong { color: var(--ink); font-weight: 700; }
+.threads a.unread small { color: var(--ink); font-weight: 500; }
+.threads .cnt {
+  float: right;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: #e53935;
+  color: #fff;
+  font-size: 0.72rem;
+  line-height: 20px;
+  text-align: center;
+}
+.msg .rs:before { content: ' · ส่งแล้ว'; }
+.msg.read .rs:before { content: ' · อ่านแล้ว ✓'; }

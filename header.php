@@ -30,11 +30,11 @@ $nav = function ($href, $label) use ($cur) {
         <?= $nav('admin.php', 'จัดการน้องๆ') ?>
         <?= $nav('pet_add.php', 'เพิ่มน้อง') ?>
         <?= $nav('orders.php', 'คำสั่งซื้อ') ?>
-        <?= $nav('chat.php', 'แชท') ?>
+        <?= $nav('chat.php', 'แชท <span class="chat-dot" id="chatDot"></span>') ?>
         <?= $nav('reports.php', 'รายงาน') ?>
       <?php elseif ($u): ?>
         <?= $nav('orders.php', 'ติดตามน้อง') ?>
-        <?= $nav('chat.php', 'แชทกับเรา') ?>
+        <?= $nav('chat.php', 'แชทกับเรา <span class="chat-dot" id="chatDot"></span>') ?>
         <?= $nav('cart.php', 'ตะกร้า <span class="badge">' . cart_count() . '</span>') ?>
       <?php endif; ?>
       <span class="sp"></span>

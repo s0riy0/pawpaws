@@ -143,3 +143,12 @@ function pet_input(array $post) {
     if (isset($v['status']) && !in_array($v['status'], ['available', 'sold'], true)) $err[] = 'สถานะไม่ถูกต้อง';
     return [$v, $err];
 }
+
+function chat_schema() {
+    global $pdo;
+    if (!empty($_SESSION['chat_schema'])) return;
+    if (!$pdo->query("SHOW COLUMNS FROM messages LIKE 'is_read'")->fetch()) {
+        $pdo->exec('ALTER TABLE messages ADD is_read TINYINT(1) NOT NULL DEFAULT 0');
+    }
+    $_SESSION['chat_schema'] = 1;
+}

@@ -88,6 +88,7 @@ CREATE TABLE messages (
   sender_id    INT NOT NULL,
   pet_id       INT NULL,
   body         TEXT NOT NULL,
+  is_read      TINYINT(1) NOT NULL DEFAULT 0,
   created_at   DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (customer_id) REFERENCES users(id) ON DELETE CASCADE,
   FOREIGN KEY (sender_id)   REFERENCES users(id) ON DELETE CASCADE,

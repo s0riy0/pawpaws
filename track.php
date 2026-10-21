@@ -40,7 +40,7 @@ include 'header.php';
     <a class="btn ghost sm" href="orders.php">← คำสั่งซื้อทั้งหมด</a>
   </div>
 
-  <div id="live" class="live <?= $received ? 'doneb' : '' ?>"><?= e($received ? 'รับน้องเรียบร้อยแล้ว ขอให้มีความสุขกับสมาชิกใหม่' : TRACK_TEXT[track_step((int)$o['elapsed'])]) ?></div>
+  <div id="live" class="live <?= $received ? 'doneb' : '' ?>"><?= e($received ? 'รับน้องเรียบร้อยแล้ว ขอให้มีความสุขกับสมาชิกใหม่ 🎉' : TRACK_TEXT[track_step((int)$o['elapsed'])]) ?></div>
 
   <ul class="timeline" id="tl">
     <?php foreach ($steps as $i => $s): ?>

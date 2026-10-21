@@ -21,7 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($vid) {
                 $vType = in_array(strtolower(pathinfo($vid, PATHINFO_EXTENSION)), VID_EXT, true) ? 'video' : 'image';
                 $pdo->prepare("INSERT INTO pet_media (pet_id,type,file,caption) VALUES (?,?,?,?)")->execute([$id, $vType, $vid, $vType === 'video' ? 'วิดีโอแรกของน้อง' : 'รูปเพิ่มเติม']);
-            }            flash("เพิ่มข้อมูล {$v['name']} เรียบร้อย");
+            }
+            flash("เพิ่มข้อมูล {$v['name']} เรียบร้อย");
             redirect("pet.php?id=$id");
         } catch (Exception $ex) {
             $err[] = $ex->getMessage();

@@ -54,7 +54,7 @@ include 'header.php';
     <?= csrf_field() ?><input type="hidden" name="action" value="confirm">
     <p><strong>น้องมาถึงแล้ว!</strong> กรุณาออกไปรับน้อง แล้วกดยืนยันด้านล่าง</p>
     <label class="row" style="justify-content:center;font-weight:400"><input type="checkbox" required style="width:auto"> ฉันได้รับน้องเรียบร้อยแล้ว</label>
-    <button class="btn mt">✅ ยืนยันว่ารับน้องแล้ว</button>
+    <button class="btn mt">ยืนยันว่ารับน้องแล้ว</button>
   </form>
 
   <div class="tbl-wrap mt">

@@ -3,7 +3,7 @@
 ## ติดตั้ง (XAMPP)
 1. วางโฟลเดอร์ `pawpaws` ไว้ใน `C:\xampp\htdocs\`
 2. เปิด Apache + MySQL
-3. phpMyAdmin → Import → `database.sql`
+3. phpMyAdmin → Import → `database.sql` และ Import → `add_pets_20.sql`
 4. เปิด http://localhost/pawpaws
 
 ถ้า MySQL มีรหัสผ่าน แก้ `$DB_USER` / `$DB_PASS` ใน `config.php`

@@ -8,7 +8,6 @@
 <?php if (user()): ?>
 <script>
 (() => {
-  // เสียงเตือน (สร้างด้วย Web Audio ไม่ต้องมีไฟล์เสียง)
   let ctx, lastBeep = 0;
   const unlock = () => { try { ctx = ctx || new (window.AudioContext || window.webkitAudioContext)(); ctx.resume(); } catch (e) {} };
   ['click', 'keydown', 'touchstart'].forEach(ev => document.addEventListener(ev, unlock, {once: true}));

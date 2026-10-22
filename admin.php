@@ -16,7 +16,7 @@ $title = 'จัดการน้องๆ';
 include 'header.php';
 ?>
 <div class="wrap page">
-  <div class="page-title"><h1>แผงควบคุมผู้ดูแลระบบ</h1><div class="row"><a class="btn ghost" href="fetch_images.php">⬇️ บันทึกรูปตัวอย่างลงเครื่อง</a><a class="btn" href="pet_add.php">+ เพิ่มน้องใหม่</a></div></div>
+  <div class="page-title"><h1>แผงควบคุมผู้ดูแลระบบ</h1><div class="row"><a class="btn ghost" href="fetch_images.php">บันทึกรูปตัวอย่างลงเครื่อง</a><a class="btn" href="pet_add.php">+ เพิ่มน้องใหม่</a></div></div>
   <div class="stats">
     <div class="stat"><small>น้องทั้งหมด</small><strong><?= $s['pets'] ?></strong><span class="small muted">พร้อมรับเลี้ยง <?= $s['available'] ?></span></div>
     <div class="stat"><small>คำสั่งซื้อ</small><strong><?= $s['orders'] ?></strong></div>

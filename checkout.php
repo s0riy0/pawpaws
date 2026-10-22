@@ -148,7 +148,6 @@ include 'header.php';
     if (save) save.href = q.createDataURL(10, 24);
   }
 
-  // แสดงข้อมูลตามวิธีชำระที่เลือก
   const radios = document.querySelectorAll('input[name="payment_method"]');
   const show = () => {
     const v = document.querySelector('input[name="payment_method"]:checked')?.value;
@@ -157,7 +156,6 @@ include 'header.php';
   radios.forEach(r => r.addEventListener('change', show));
   show();
 
-  // ปุ่มคัดลอกเลขบัญชี
   document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', async () => {
     const t = b.dataset.copy;
     try { await navigator.clipboard.writeText(t); }

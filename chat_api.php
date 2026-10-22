@@ -6,7 +6,6 @@ chat_schema();
 
 $me = user()['id'];
 
-// สถานะแชทที่ยังไม่ได้อ่าน (ใช้กับจุดแดงบนเมนู + รายชื่อห้องแชท)
 if (isset($_GET['status'])) {
     if (is_admin()) {
         $threads = $pdo->query('SELECT u.id, u.full_name, m.body,
@@ -40,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// เปิดห้องแชทอยู่ = อ่านข้อความของอีกฝ่ายแล้ว
 if (is_admin()) {
     $pdo->prepare('UPDATE messages SET is_read = 1 WHERE customer_id = ? AND sender_id = ? AND is_read = 0')->execute([$cid, $cid]);
 } else {
@@ -53,7 +51,6 @@ $st = $pdo->prepare('SELECT m.id, m.body, m.sender_id, m.is_read, m.created_at, 
 $st->execute([$cid, (int)($_REQUEST['after'] ?? 0)]);
 $list = $st->fetchAll();
 
-// สถานะอ่านแล้วของข้อความที่เราส่ง
 $rd = $pdo->prepare('SELECT COALESCE(MAX(id),0) FROM messages WHERE customer_id = ? AND sender_id = ? AND is_read = 1');
 $rd->execute([$cid, $me]);
 

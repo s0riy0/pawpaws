@@ -45,7 +45,6 @@ include 'header.php';
 </section>
 
 <script>
-// สุ่มเปลี่ยนรูปน้องทุก 3 วินาที
 (() => {
   const s = [...document.querySelectorAll('#heroSlides .slide')];
   if (s.length < 2) return;

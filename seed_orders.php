@@ -1,5 +1,4 @@
 <?php
-// เติมคำสั่งซื้อตัวอย่างให้ครบ 12 รายการ (เปิดหน้านี้ครั้งเดียว แล้วลบไฟล์ทิ้งได้)
 require 'config.php';
 require_admin();
 
@@ -23,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $need > 0) {
     try {
         $pdo->beginTransaction();
 
-        // ลูกค้าตัวอย่าง (รหัสผ่าน 123456)
         $insU = $pdo->prepare("INSERT IGNORE INTO users (username,password,full_name,email,phone,address,birth_date,role) VALUES (?,?,?,?,?,?,?,'customer')");
         $hash = password_hash('123456', PASSWORD_DEFAULT);
         foreach ($customers as $c) $insU->execute([$c[0], $hash, $c[1], $c[2], $c[3], $c[4], $c[5]]);
@@ -37,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $need > 0) {
         $sold  = $pdo->prepare("UPDATE pets SET status = 'sold' WHERE id = ?");
         $unCart = $pdo->prepare('DELETE FROM cart_items WHERE pet_id = ?');
 
-        // กระจายวันที่ชำระเงินตั้งแต่ ม.ค. ถึงเมื่อวาน เพื่อให้รายงานรายเดือนมีข้อมูล
         $start = strtotime(date('Y-01-05 10:00'));
         $end = strtotime('-1 day');
         $spare = count($pets) - $need;

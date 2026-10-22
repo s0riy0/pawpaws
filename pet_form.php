@@ -1,5 +1,4 @@
 <?php
-// ฟอร์มข้อมูลสัตว์เลี้ยง (ใช้ร่วมกันใน pet_add.php / pet_edit.php) ต้องมี $v, $cats, $isEdit
 $sel = fn($a, $b) => (string)$a === (string)$b ? 'selected' : '';
 ?>
 <div class="grid2">

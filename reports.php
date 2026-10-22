@@ -8,7 +8,6 @@ if (!DateTime::createFromFormat('Y-m-d', $from)) $from = date('Y-01-01');
 if (!DateTime::createFromFormat('Y-m-d', $to)) $to = date('Y-m-d');
 $r = $_GET['r'] ?? 'all';
 
-// รายงาน 1: ยอดขายแยกตามประเภทสัตว์เลี้ยง
 $st = $pdo->prepare('SELECT c.name, COUNT(s.pet_id) AS qty, COALESCE(SUM(s.price),0) AS total
     FROM categories c
     LEFT JOIN pets p ON p.category_id = c.id
@@ -18,21 +17,18 @@ $st = $pdo->prepare('SELECT c.name, COUNT(s.pet_id) AS qty, COALESCE(SUM(s.price
 $st->execute([$from, $to]);
 $byCat = $st->fetchAll();
 
-// รายงาน 2: ยอดขายรายเดือน
 $st = $pdo->prepare("SELECT DATE_FORMAT(o.paid_at, '%Y-%m') AS m, COUNT(DISTINCT o.id) AS orders, COUNT(oi.pet_id) AS pets, SUM(oi.price) AS total
     FROM orders o JOIN order_items oi ON oi.order_id = o.id
     WHERE DATE(o.paid_at) BETWEEN ? AND ? GROUP BY m ORDER BY m");
 $st->execute([$from, $to]);
 $byMonth = $st->fetchAll();
 
-// รายงาน 3: ลูกค้าที่มียอดซื้อสูงสุด
 $st = $pdo->prepare('SELECT u.full_name, u.email, u.phone, COUNT(DISTINCT o.id) AS orders, COUNT(oi.pet_id) AS pets, SUM(oi.price) AS total, MAX(o.paid_at) AS last
     FROM users u JOIN orders o ON o.user_id = u.id JOIN order_items oi ON oi.order_id = o.id
     WHERE DATE(o.paid_at) BETWEEN ? AND ? GROUP BY u.id, u.full_name, u.email, u.phone ORDER BY total DESC LIMIT 10');
 $st->execute([$from, $to]);
 $topCust = $st->fetchAll();
 
-// รายงาน 4: สถานะสัตว์เลี้ยงคงเหลือแยกประเภท
 $stock = $pdo->query("SELECT c.name, COUNT(p.id) AS total,
     SUM(p.status = 'available') AS available, SUM(p.status = 'sold') AS sold,
     COALESCE(AVG(p.price),0) AS avg_price, COALESCE(MIN(p.price),0) AS min_price, COALESCE(MAX(p.price),0) AS max_price

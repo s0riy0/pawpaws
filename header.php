@@ -15,6 +15,9 @@ $nav = function ($href, $label) use ($cur) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#f4eee9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0a12" media="(prefers-color-scheme: dark)">
+<script>try{var t=localStorage.getItem('pp-theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -46,8 +49,18 @@ $nav = function ($href, $label) use ($cur) {
         <a class="btn sm" href="register.php">สมัครสมาชิก</a>
       <?php endif; ?>
     </nav>
+    <button type="button" class="theme-t" id="themeT" aria-label="สลับโหมดสว่าง/มืด" title="สลับโหมดสว่าง/มืด">🌙</button>
   </div>
 </header>
+<script>
+(() => {
+  const b = document.getElementById('themeT'), r = document.documentElement;
+  const dark = () => (r.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark';
+  const sync = () => b.textContent = dark() ? '☀️' : '🌙';
+  b.onclick = () => { r.dataset.theme = dark() ? 'light' : 'dark'; try { localStorage.setItem('pp-theme', r.dataset.theme); } catch (e) {} sync(); };
+  sync();
+})();
+</script>
 <main>
 <?php if ($f = flash()): ?>
   <div class="wrap"><div class="alert <?= e($f[1]) ?>"><?= e($f[0]) ?></div></div>

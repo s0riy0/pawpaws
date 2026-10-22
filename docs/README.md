@@ -11,8 +11,8 @@
 ## บัญชีทดสอบ
 | Role | Username | Password |
 |---|---|---|
-| Admin | admin | admin123 |
-| ลูกค้า | customer | 123456 |
+| Admin | soriya-admin | admin123 |
+| ลูกค้า | Nutchapol | 123456 |
 
 ## หน้าเว็บ
 | หน้า | ไฟล์ |

@@ -17,6 +17,33 @@ const IMG_EXT = ['jpg', 'jpeg', 'jpe', 'jfif', 'pjpeg', 'pjp', 'png', 'apng', 'w
 const VID_EXT = ['mp4', 'webm', 'mov'];
 const PAY_METHODS = ['transfer' => 'โอนผ่านธนาคาร', 'promptpay' => 'พร้อมเพย์', 'card' => 'บัตรเครดิต/เดบิต', 'cod' => 'เก็บเงินปลายทาง'];
 
+const SHOP_PAY_NAME  = 'PawPaws';
+const SHOP_PROMPTPAY = '0812345678'; 
+const SHOP_BANKS = [
+    ['code' => 'ํYBANK', 'name' => 'ธนาคารโสริยา',   'acc' => '123-4-56789-0', 'holder' => 'บจก. พอว์พอว์ส', 'color' => '#138f2d'],
+    ['code' => 'OCB',   'name' => 'ธนาคารเอกรินทร์', 'acc' => '987-6-54321-0', 'holder' => 'บจก. พอว์พอว์ส', 'color' => '#4e2a84'],
+];
+
+function promptpay_payload($id, $amount = null) {
+    $id = preg_replace('/\D/', '', (string)$id);
+    $f = fn($tag, $val) => $tag . sprintf('%02d', strlen($val)) . $val;
+    if (strlen($id) >= 15) $acc = $f('03', $id);
+    elseif (strlen($id) >= 13) $acc = $f('02', $id);
+    else $acc = $f('01', substr('0000000000000' . preg_replace('/^0/', '66', $id), -13));
+    $p = $f('00', '01') . $f('01', $amount ? '12' : '11')
+       . $f('29', $f('00', 'A000000677010111') . $acc)
+       . $f('58', 'TH') . $f('53', '764')
+       . ($amount ? $f('54', number_format((float)$amount, 2, '.', '')) : '')
+       . '6304';
+    $crc = 0xFFFF;
+    for ($i = 0, $n = strlen($p); $i < $n; $i++) {
+        $crc ^= ord($p[$i]) << 8;
+        for ($b = 0; $b < 8; $b++) $crc = ($crc & 0x8000) ? (($crc << 1) ^ 0x1021) & 0xFFFF : ($crc << 1) & 0xFFFF;
+    }
+    return $p . sprintf('%04X', $crc);
+}
+
+
 function e($s) { return htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8'); }
 function user() { return $_SESSION['user'] ?? null; }
 function is_admin() { return (user()['role'] ?? '') === 'admin'; }

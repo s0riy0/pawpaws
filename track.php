@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'confi
     check_csrf();
     if (!is_admin() && $o['status'] === 'shipping' && track_step((int)$o['elapsed']) === 3) {
         $pdo->prepare("UPDATE orders SET status = 'received', received_at = NOW() WHERE id = ?")->execute([$id]);
-        flash('ยืนยันการรับน้องเรียบร้อย ขอบคุณที่มอบบ้านอบอุ่นให้น้องนะ 🧡');
+        flash('ยืนยันการรับน้องเรียบร้อย ขอบคุณที่มอบบ้านอบอุ่นให้น้องนะ');
     }
     redirect("track.php?id=$id");
 }

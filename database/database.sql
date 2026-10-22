@@ -95,13 +95,11 @@ CREATE TABLE messages (
   FOREIGN KEY (pet_id)      REFERENCES pets(id)  ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
--- ข้อมูลตัวอย่าง
 INSERT INTO categories (name) VALUES ('แมว'),('สุนัข'),('กระต่าย'),('Exotic');
 
--- admin / admin123   |   customer / 123456
 INSERT INTO users (username,password,full_name,email,phone,address,birth_date,role) VALUES
-('admin','$2y$10$JPnEGtYM28S/WGRbNB1Bz.Akk/7bsFoSXzCln8BGtBp09v57GWB7G','ผู้ดูแลระบบ','admin@pawpaws.test','020000000','PawPaws HQ','1995-01-01','admin'),
-('customer','$2y$10$xQLUl4SMTyiATvwA2bBjT.DEmoDEDceQsISs3PlnDKnRkqGWeuWZi','สมใจ รักน้อง','customer@pawpaws.test','0812345678','99 ถ.สุขุมวิท กรุงเทพฯ 10110','2000-05-15','customer');
+('soriya-admin','$2y$10$JPnEGtYM28S/WGRbNB1Bz.Akk/7bsFoSXzCln8BGtBp09v57GWB7G','แอดมินโสริยา','admin@pawpaws.test','020000000','PawPaws HQ','1995-01-01','admin'),
+('Nutchapol','$2y$10$xQLUl4SMTyiATvwA2bBjT.DEmoDEDceQsISs3PlnDKnRkqGWeuWZi','ปันปัน รักเด็ก','customer@pawpaws.test','0812345678','99 ถ.สุขุมวิท กรุงเทพฯ 10110','2000-05-15','customer');
 
 INSERT INTO pets (category_id,name,breed,gender,birth_date,price,description,image,created_by) VALUES
 (2,'บัดดี้','บีเกิล','male','2026-03-10',15900,'ขี้เล่น เป็นมิตรกับเด็ก ฉีดวัคซีนครบ','https://images.unsplash.com/photo-1606833695155-e3498374e701?auto=format&fit=crop&w=800&q=80',1),
@@ -111,10 +109,8 @@ INSERT INTO pets (category_id,name,breed,gender,birth_date,price,description,ima
 (3,'ปุยฝ้าย','ฮอลแลนด์ ลอป','female','2026-06-01',3500,'หูตก ขนนุ่ม เลี้ยงง่าย','https://images.unsplash.com/photo-1535241749838-299277b6305f?auto=format&fit=crop&w=800&q=80',1),
 (4,'ลาวา','เบียร์ดดราก้อน','male','2025-12-12',6900,'เชื่อง ชอบอาบแดด','https://images.unsplash.com/photo-1530525393181-2483a388767e?auto=format&fit=crop&w=800&q=80',1);
 
--- รูปตัวอย่าง (Unsplash License) แสดงในแกลเลอรีอัปเดตตัวจริงด้วย
 INSERT INTO pet_media (pet_id,type,file,caption) SELECT id,'image',image,'รูปล่าสุดของน้อง' FROM pets WHERE image IS NOT NULL;
 
--- น้องเพิ่มเติม 20 ตัว
 INSERT IGNORE INTO categories (name) VALUES ('นก'),('สัตว์ฟันแทะ');
 
 INSERT INTO pets (category_id,name,breed,gender,birth_date,price,description,image,created_by) VALUES

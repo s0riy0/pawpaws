@@ -15,6 +15,7 @@ foreach (['database.sql', 'add_pets_20.sql'] as $f) {
     $sql = file_get_contents(__DIR__ . '/database/' . $f);
     // Managed databases don't allow dropping/creating schemas; use the provided one.
     $sql = preg_replace('/^\s*(DROP DATABASE|CREATE DATABASE|USE)\b[^;]*;/mi', '', $sql);
+    $sql = str_replace('ENGINE=InnoDB', 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci', $sql);
     $pdo->exec($sql);
     echo "Imported $f\n";
 }

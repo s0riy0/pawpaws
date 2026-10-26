@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: pawpaws
+    runtime: docker
+    plan: free
+    healthCheckPath: /login.php
+    envVars:
+      # MySQL/MariaDB is not offered by Render: point these at an external
+      # MySQL host (Aiven, TiDB Cloud, PlanetScale, Railway, ...).
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASS
+        sync: false
+      - key: DB_SSL
+        value: "1"

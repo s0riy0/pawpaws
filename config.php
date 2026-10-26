@@ -2,15 +2,22 @@
 session_start();
 date_default_timezone_set('Asia/Bangkok');
 
-$DB_HOST = 'localhost';
-$DB_NAME = 'pawpaws';
-$DB_USER = 'root';
-$DB_PASS = '';
+$DB_HOST = getenv('DB_HOST') ?: 'localhost';
+$DB_PORT = getenv('DB_PORT') ?: '3306';
+$DB_NAME = getenv('DB_NAME') ?: 'pawpaws';
+$DB_USER = getenv('DB_USER') ?: 'root';
+$DB_PASS = getenv('DB_PASS') ?: '';
 
-$pdo = new PDO("mysql:host=$DB_HOST;dbname=$DB_NAME;charset=utf8mb4", $DB_USER, $DB_PASS, [
+$pdo_opts = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-]);
+];
+if (getenv('DB_SSL')) {
+    $pdo_opts[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+    $pdo_opts[PDO::MYSQL_ATTR_SSL_CA] = '/etc/ssl/certs/ca-certificates.crt';
+}
+
+$pdo = new PDO("mysql:host=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME;charset=utf8mb4", $DB_USER, $DB_PASS, $pdo_opts);
 $pdo->exec("SET time_zone = '+07:00'");
 
 const IMG_EXT = ['jpg', 'jpeg', 'jpe', 'jfif', 'pjpeg', 'pjp', 'png', 'apng', 'webp', 'gif', 'bmp', 'dib', 'avif', 'heic', 'heif', 'tif', 'tiff', 'ico', 'cur', 'svg', 'jxl'];

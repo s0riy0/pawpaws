@@ -30,3 +30,11 @@
 | แชทลูกค้า ↔ แอดมิน | chat.php / chat_api.php |
 | แดชบอร์ดแอดมิน | admin.php |
 
+
+## Deploy บน Render.com
+Render ไม่มี MySQL ให้ในตัว จึงต้องใช้ MySQL ภายนอก (เช่น Aiven, TiDB Cloud, Railway)
+1. สร้างฐานข้อมูล MySQL ว่างๆ แล้วจดค่า host / port / db name / user / password
+2. Push โค้ดขึ้น GitHub → Render → New → Blueprint → เลือก repo (ใช้ `render.yaml`)
+3. กรอก env: `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASS` (ตั้ง `DB_SSL=1` ถ้า DB บังคับ SSL; ลบออกถ้าไม่ใช้)
+4. เริ่มต้นครั้งแรกระบบจะ import `database/database.sql` และ `add_pets_20.sql` ให้อัตโนมัติถ้า DB ยังว่าง
+5. หมายเหตุ: ดิสก์ของ Render ชั่วคราว ไฟล์ใน `uploads/` จะหายเมื่อ redeploy — ใช้ Persistent Disk (แพลนเสียเงิน, mount ที่ `/var/www/html/uploads`) หรือเก็บรูปเป็น URL

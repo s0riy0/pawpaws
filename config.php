@@ -8,6 +8,9 @@ $DB_NAME = getenv('DB_NAME') ?: 'pawpaws';
 $DB_USER = getenv('DB_USER') ?: 'root';
 $DB_PASS = getenv('DB_PASS') ?: '';
 
+// Shared hosting (e.g. InfinityFree) has no env vars: override via config.local.php
+if (is_file(__DIR__ . '/config.local.php')) require __DIR__ . '/config.local.php';
+
 $pdo_opts = [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,

@@ -128,7 +128,10 @@ function delete_file($name) {
 }
 
 function media_url($file) {
-    return preg_match('#^https?://#i', (string)$file) ? $file : 'uploads/' . $file;
+    if (preg_match('#^https?://#i', (string)$file)) return $file;
+    // Version by mtime so browsers skip a cached miss (InfinityFree caches 404 redirects for 30 days).
+    $mtime = @filemtime(__DIR__ . '/uploads/' . basename($file));
+    return 'uploads/' . $file . ($mtime ? '?v=' . $mtime : '');
 }
 function img_tag($file, $alt = '') {
     return $file

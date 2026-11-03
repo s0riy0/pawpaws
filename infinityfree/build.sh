@@ -10,6 +10,8 @@ cp *.php "$OUT/htdocs/"
 rm -f "$OUT/htdocs/config.local.php" "$OUT/htdocs/config.local.example.php" "$OUT/htdocs/seed_orders.php"
 cp -R assets "$OUT/htdocs/assets"
 cp config.local.example.php "$OUT/htdocs/config.local.php"
+# Pet photos that the database refers to by filename.
+cp uploads/*.* "$OUT/htdocs/uploads/"
 
 # php_flag in .htaccess causes HTTP 500 on FastCGI hosts, so use a safe variant.
 cat > "$OUT/htdocs/uploads/.htaccess" <<'HT'

@@ -35,7 +35,7 @@
 
   async function poll() {
     try {
-      const r = await (await fetch('chat_api.php?status=1', {cache: 'no-store'})).json();
+      const r = await (await fetch('message_api.php?status=1', {cache: 'no-store'})).json();
       if (dot) { dot.textContent = r.total > 99 ? '99+' : (r.total || ''); dot.classList.toggle('on', r.total > 0); }
       document.title = r.total > 0 ? `(${r.total}) ${baseTitle}` : baseTitle;
       if (seen !== null && r.last > seen && r.total > 0) window.chatBeep();
@@ -44,7 +44,7 @@
         const cur = +threads.dataset.cur;
         threads.innerHTML = r.threads.length ? r.threads.map(t => {
           const un = t.unread && t.id !== cur;
-          return `<a href="chat.php?c=${t.id}" class="${t.id === cur ? 'on' : ''}${un ? ' unread' : ''}"><span class="cdot"></span><strong>${esc(t.name)}</strong>${un ? `<span class="cnt">${t.unread}</span>` : ''}<small>${esc(t.body)}</small></a>`;
+          return `<a href="message.php?c=${t.id}" class="${t.id === cur ? 'on' : ''}${un ? ' unread' : ''}"><span class="cdot"></span><strong>${esc(t.name)}</strong>${un ? `<span class="cnt">${t.unread}</span>` : ''}<small>${esc(t.body)}</small></a>`;
         }).join('') : '<p class="muted small" style="padding:16px">ยังไม่มีข้อความจากลูกค้า</p>';
       }
     } catch (e) {}

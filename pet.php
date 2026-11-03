@@ -60,7 +60,7 @@ include 'header.php';
           </form>
         <?php endif; ?>
         <?php if (!is_admin()): ?>
-          <a class="btn ghost" href="chat.php?pet=<?= $p['id'] ?>">💬 สอบถามเกี่ยวกับน้อง</a>
+          <a class="btn ghost" href="message.php?pet=<?= $p['id'] ?>">💬 สอบถามเกี่ยวกับน้อง</a>
         <?php endif; ?>
       </div>
     </div>

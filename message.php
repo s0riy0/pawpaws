@@ -36,7 +36,7 @@ include 'header.php';
       <div class="threads" id="threads" data-cur="<?= $cid ?>">
         <?php if (!$threads): ?><p class="muted small" style="padding:16px">ยังไม่มีข้อความจากลูกค้า</p><?php endif; ?>
         <?php foreach ($threads as $t): ?>
-          <a href="chat.php?c=<?= $t['id'] ?>" class="<?= $t['id'] == $cid ? 'on' : '' ?><?= $t['unread'] && $t['id'] != $cid ? ' unread' : '' ?>"><span class="cdot"></span><strong><?= e($t['full_name']) ?></strong><?php if ($t['unread'] && $t['id'] != $cid): ?><span class="cnt"><?= $t['unread'] ?></span><?php endif; ?><small><?= e($t['body']) ?></small></a>
+          <a href="message.php?c=<?= $t['id'] ?>" class="<?= $t['id'] == $cid ? 'on' : '' ?><?= $t['unread'] && $t['id'] != $cid ? ' unread' : '' ?>"><span class="cdot"></span><strong><?= e($t['full_name']) ?></strong><?php if ($t['unread'] && $t['id'] != $cid): ?><span class="cnt"><?= $t['unread'] ?></span><?php endif; ?><small><?= e($t['body']) ?></small></a>
         <?php endforeach; ?>
       </div>
     <?php endif; ?>
@@ -91,7 +91,7 @@ include 'header.php';
     first = false;
   }
   async function load() {
-    try { render(await (await fetch(`chat_api.php?c=${C}&after=${last}`, {cache: 'no-store'})).json()); } catch (e) {}
+    try { render(await (await fetch(`message_api.php?c=${C}&after=${last}`, {cache: 'no-store'})).json()); } catch (e) {}
   }
   form.addEventListener('submit', async ev => {
     ev.preventDefault();
@@ -101,7 +101,7 @@ include 'header.php';
     const fd = new FormData();
     fd.append('csrf', CSRF); fd.append('c', C); fd.append('body', body); fd.append('after', last);
     if (pet) { fd.append('pet', pet); pet = 0; }
-    try { render(await (await fetch('chat_api.php', {method: 'POST', body: fd})).json()); } catch (e) {}
+    try { render(await (await fetch('message_api.php', {method: 'POST', body: fd})).json()); } catch (e) {}
   });
   load().then(() => box.scrollTop = box.scrollHeight);
   setInterval(load, 3000);

@@ -27,7 +27,7 @@
 | โปรไฟล์สัตว์เลี้ยง | pet.php |
 | ตะกร้า / ชำระเงิน | cart.php / checkout.php |
 | ติดตามการจัดส่ง (อัปเดตทุก 5 วิ) | orders.php / track.php / track_api.php |
-| แชทลูกค้า ↔ แอดมิน | chat.php / chat_api.php |
+| แชทลูกค้า ↔ แอดมิน | message.php / message_api.php |
 | แดชบอร์ดแอดมิน | admin.php |
 
 
